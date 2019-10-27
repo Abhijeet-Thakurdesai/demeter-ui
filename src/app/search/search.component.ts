@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FoodService} from "../services/food.service";
+import {Router} from "@angular/router";
+import {AuthService} from "../services/auth.service";
 
 @Component({
   selector: 'app-search',
@@ -9,7 +11,7 @@ import {FoodService} from "../services/food.service";
 export class SearchComponent implements OnInit {
   searchString: string;
   searchResult = []
-  constructor(private foodSvc: FoodService) { }
+  constructor(private foodSvc: FoodService, private router: Router, private authSvc: AuthService) { }
 
   ngOnInit() {
   }
@@ -21,4 +23,12 @@ export class SearchComponent implements OnInit {
     });
   }
 
+  logout() {
+    this.authSvc.logout();
+    this.router.navigate(['/login']);
+  }
+
+  goToPost() {
+    this.router.navigate(['/post']);
+  }
 }

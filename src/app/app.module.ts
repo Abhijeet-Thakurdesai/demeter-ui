@@ -9,6 +9,7 @@ import { PostComponent } from './post/post.component';
 import { RouterModule, Routes } from '@angular/router';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import {
     MatFormFieldModule,
@@ -18,12 +19,13 @@ import {
 } from '@angular/material';
 import { HttpClientModule } from '@angular/common/http';
 import {AuthService} from './services/auth.service';
+import {AuthGuardService} from "./services/auth-guard.service";
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'search', component: SearchComponent },
-  { path: 'post', component: PostComponent },
+  { path: 'search', component: SearchComponent, canActivate:[AuthGuardService] },
+  { path: 'post', component: PostComponent, canActivate:[AuthGuardService] },
 ];
 
 @NgModule({
@@ -37,6 +39,7 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     FormsModule,
+    NgbModule,
     ReactiveFormsModule,
     MatButtonModule,
     MatFormFieldModule,
